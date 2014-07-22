@@ -1,4 +1,4 @@
-PaperRotator
+PaperRotator 1.0.0
 ============
 
 JavaScript-based newspaper rotator that pulls daily A1 front pages from Newseum.

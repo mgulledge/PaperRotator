@@ -1,0 +1,112 @@
+<!-- Paper Rotator 1.0.0
+  By Michael R. Gulledge
+  Copyright 2014 Michael R. Gulledge. All Rights Reserved. 
+
+  >>> Rotates daily newspapers and refreshes every hour 
+  0.1.0: Initial Release
+  0.1.1: Added change for current date in Newseum frontpage URL
+  0.2.0: Added functionality to change interval time at bottom 
+  0.2.1: Added error handling if newspaper is not posted correctly 
+  0.2.2: Added Chicago Tribune, other papers
+  1.0.0: Minor tweaks for 'production' release
+
+  Questions: @mgulledge or michael.gulledge -a@t- sbcglobal -dot- net
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<!-- setting the style of the body to overflow:hidden eliminates scrollbars --> 
+<body onload='javascript:timedRefresh(3600000);' style='overflow:hidden'> 
+
+  <div class ='main-left' style='overflow:hidden'>
+
+    <!-- The onerror can be a link to whatever newspaper you'd like --> 
+
+    <img src='http://webmedia.newseum.org/newseum-multimedia/dfp/jpg/lg/MO_SLPD.jpg' id='rotatableImg' alt='0' style='overflow:hidden' onerror='this.src='https://pbs.twimg.com/media/BtGUOrMIMAAR6V6.jpg';' border='0' width='100%'>
+
+    <script>
+      // Time, in milliseconds, between papers
+      var interval = 7000; 
+
+
+      // Refreshes the page, and the cache, every hour from the body onload 
+      function timedRefresh(timeoutPeriod) {
+        setTimeout('location.reload(true);', timeoutPeriod); 
+      }
+
+      // prepend urlBase to images
+      function prependUrlBase(imgFile) {
+        // determine which day to use for baseUrl, if not set
+        if (!this.urlBase) {
+          // If the time is greater than 4 a.m. system time, then display next day's papers
+          var d = new Date()
+            , n = (d.getHours() > 4) ? d.getDate() : d.getDate() - 1;
+
+          this.urlBase = 'http://webmedia.newseum.org/newseum-multimedia/dfp/jpg' + n + '/lg/';
+        }
+
+        return this.urlBase + imgFile;
+      }
+
+      // Array of newspapers to rotate through 
+      function rotateImages(start){
+        var c = [
+          'MO_SLPD.jpg', 
+          'MO_NL.jpg', 
+          'CO_DP.jpg',
+          'IL_CT.jpg',
+          'TX_DMN.jpg',
+          'MO_KCS.jpg',
+          'DC_WP.jpg',
+          'WSJ.jpg',
+          'CA_LAT.jpg',
+          'CA_LAR.jpg',
+          'NY_NYT.jpg',
+          'USAT.jpg',
+          'UK_TG.jpg',
+          'IL_BND.jpg',
+          'MA_BG.jpg',
+          'MO_FS.jpg',
+          'MO_MO.jpg',
+          'IRL_IT.jpg',
+          'PA_PTR.jpg',
+          'CA_SFC.jpg',
+          'CO_TG.jpg',
+          'TX_HC.jpg',
+          'VA_VP.jpg',
+          'CAN_TS.jpg'
+        ].map(prependUrlBase);
+
+        // Script that actually rotates images
+        var rotatableImg = document.getElementById('rotatableImg');
+
+        // loop back to beginning of images after cycling through all of them
+        if (start >= c.length) {
+          start = 0;
+        }
+
+        document.getElementById('rotatableImg').src = c[start];
+        document.getElementById('rotatableImg').alt = start;
+        window.setTimeout('rotateImages(' + (start+1) + ')', interval);
+      }
+
+      // Function to set the new interval from field at bottom of the page
+      function setInterval(intervalIn) { 
+        interval = intervalIn * 1000;
+      }
+
+      rotateImages(0);
+    </script>
+  </div>
+
+  <div>
+    <center> 
+      Enter Time Interval in Seconds: <input id='timeInt' style='width:45px;' name='timeInt' type='number' onchange='setInterval(this.value)'>
+    </center>
+  </div>
+</body>
+</html>
+

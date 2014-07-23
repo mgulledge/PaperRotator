@@ -1,16 +1,16 @@
-<!-- Paper Rotator 1.0.0
- 	By Michael R. Gulledge
- 	Copyright 2014 Michael R. Gulledge. All Rights Reserved. 
+<!-- Paper Rotator 0.2.2
+	By Michael R. Gulledge
+	Copyright 2014 Michael R. Gulledge. All Rights Reserved. 
 
- 	>>> Rotates daily newspapers and refreshes every hour 
- 	0.1.0: Initial Release
- 	0.1.1: Added change for current date in Newseum frontpage URL
- 	0.2.0: Added functionality to change interval time at bottom 
- 	0.2.1: Added error handling if newspaper is not posted correctly 
- 	0.2.2: Added Chicago Tribune, other papers
- 	1.0.0: Minor tweaks for 'production' release
+	>>> Rotates daily newspapers and refreshes every hour 
+	0.1.0: Initial Release
+	0.1.1: Added change for current date in Newseum frontpage URL
+	0.2.0: Added functionality to change interval time at bottom 
+	0.2.1: Added error handling if newspaper is not posted correctly 
+	0.2.2: Added Chicago Tribune, other papers
+	1.0.0: Minor tweaks for 'production' release
 
- 	Questions: @mgulledge or michael.gulledge -a@t- sbcglobal -dot- net
+	Questions: @mgulledge or michael.gulledge -a@t- sbcglobal -dot- net
  -->
 
 <html>
@@ -23,8 +23,6 @@
 			}
 
 		</script>
-
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 	</head>
 
@@ -54,48 +52,48 @@
 			var urlBase = "http://webmedia.newseum.org/newseum-multimedia/dfp/jpg" + n + "/lg/";
 
 			// Array of newspapers to rotate through 
-		   	function RotateImages(Start){
-			     var c = new Array(urlBase + "MO_SLPD.jpg", 
-			     				 	urlBase + "MO_NL.jpg", 
-			     					urlBase + "CO_DP.jpg",
-			     					urlBase + "IL_CT.jpg",
-			     					urlBase + "TX_DMN.jpg",
-			     					urlBase + "MO_KCS.jpg",
-			     					urlBase + "DC_WP.jpg",
-			     					urlBase + "WSJ.jpg",
-			     					urlBase + "CA_LAT.jpg",
-			     					urlBase + "CA_LAR.jpg",
-			     					urlBase + "NY_NYT.jpg",
-			     					urlBase + "USAT.jpg",
-			     					urlBase + "UK_TG.jpg",
-			     					urlBase + "IL_BND.jpg",
-			     					urlBase + "MA_BG.jpg",
-			     					urlBase + "MO_FS.jpg",
-			     					urlBase + "MO_MO.jpg",
-			     					urlBase + "IRL_IT.jpg",
-			     					urlBase + "PA_PTR.jpg",
-			     					urlBase + "CA_SFC.jpg",
-			     					urlBase + "CO_TG.jpg",
-			     					urlBase + "TX_HC.jpg",
-			     					urlBase + "VA_VP.jpg",
-			     					urlBase + "CAN_TS.jpg"
+			function RotateImages(Start){
+				 var c = new Array(urlBase + "MO_SLPD.jpg", 
+									urlBase + "MO_NL.jpg", 
+									urlBase + "CO_DP.jpg",
+									urlBase + "IL_CT.jpg",
+									urlBase + "TX_DMN.jpg",
+									urlBase + "MO_KCS.jpg",
+									urlBase + "DC_WP.jpg",
+									urlBase + "WSJ.jpg",
+									urlBase + "CA_LAT.jpg",
+									urlBase + "CA_LAR.jpg",
+									urlBase + "NY_NYT.jpg",
+									urlBase + "USAT.jpg",
+									urlBase + "UK_TG.jpg",
+									urlBase + "IL_BND.jpg",
+									urlBase + "MA_BG.jpg",
+									urlBase + "MO_FS.jpg",
+									urlBase + "MO_MO.jpg",
+									urlBase + "IRL_IT.jpg",
+									urlBase + "PA_PTR.jpg",
+									urlBase + "CA_SFC.jpg",
+									urlBase + "CO_TG.jpg",
+									urlBase + "TX_HC.jpg",
+									urlBase + "VA_VP.jpg",
+									urlBase + "CAN_TS.jpg"
 								);
 
-			     // Script that actually rotates images
-			     var b = document.getElementById('Rotating1');
-			     if(Start>=c.length)
-			          Start=0;
-			     document.getElementById('Rotating1').src = c[Start];
-			     document.getElementById('Rotating1').alt = Start;
-				 window.setTimeout("RotateImages(" + (Start+1) + ")",interval);
-		  	}
+				// Script that actually rotates images
+				var b = document.getElementById('Rotating1');
+				if(Start>=c.length)
+					Start=0;
+				document.getElementById('Rotating1').src = c[Start];
+				document.getElementById('Rotating1').alt = Start;
+				window.setTimeout("RotateImages(" + (Start+1) + ")",interval);
+			}
+		 
+		// Function to set the new interval from field at bottom of the page
+		function setInterval(intervalIn) { 
+			interval = intervalIn * 1000;
+		}
 		  
-		  // Function to set the new interval from field at bottom of the page
-		  function setInterval(intervalIn) { 
-		  		interval = intervalIn * 1000;
-		  }
-		  
-		  RotateImages(0);
+		RotateImages(0);
 		  
 		</script>
 	</div>
@@ -108,4 +106,3 @@
 
 </body>
 </html>
-
